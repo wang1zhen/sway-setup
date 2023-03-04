@@ -1,0 +1,6 @@
+* Installation
+  #+begin_src shell
+    git clone git@github.com:wang1zhen/sway-setup.git
+    cd sway-setup
+    bash ./install.sh
+  #+end_src

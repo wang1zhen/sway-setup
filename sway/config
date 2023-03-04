@@ -52,6 +52,13 @@ output * bg `find $wallpapers_path -type f | shuf -n 1` fill
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 
+set $lock $HOME/.config/sway/lock.sh
+exec swayidle -w \
+         timeout 300 'swaymsg "output * dpms off"' \
+         resume 'swaymsg "output * dpms on"' \
+         before-sleep 'swaymsg exec $lock'
+bindsym $mod+semicolon exec $lock
+
 ### Input configuration
 #
 # Example configuration:
@@ -222,7 +229,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Opacity/Transparency
-exec --no-startup-id python3 ~/.config/sway/inactive-windows-transparency.py
+exec --no-startup-id python3 $HOME/.config/sway/inactive-windows-transparency.py
 
 # Hide title bar
 default_border pixel 1
@@ -238,25 +245,37 @@ for_window [title="图片查看器"] floating enable; border none
 bindsym $mod+e exec --no-startup-id thunar
 bindsym $mod+Shift+e exec --no-startup-id emacsclient -c -a "" -n
 
-bindsym Print exec --no-startup-id flameshot gui
-bindsym Mod1+s exec --no-startup-id flameshot gui
+bindsym Print exec --no-startup-id grimshot copy area
+bindsym Mod1+s exec --no-startup-id grimshot copy area
+
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86Search exec $menu
 
 #
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-bar {
-    position top
+bar swaybar_command waybar
+# bar {
+#     position top
 
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
+#     # When the status_command prints a new line to stdout, swaybar updates.
+#     # The default just shows the current date and time.
+#     status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
 
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
-}
+#     colors {
+#         statusline #ffffff
+#         background #323232
+#         inactive_workspace #32323200 #32323200 #5c5c5c
+#     }
+# }
 
 include /etc/sway/config.d/*
