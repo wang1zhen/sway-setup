@@ -1,6 +1,0 @@
-configuration {
-	modi: "drun";
-	font: "CaskaydiaCove Nerd Font 20";
-	show-icons: true;
-}
-@theme "gruvbox-dark"

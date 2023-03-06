@@ -105,7 +105,8 @@ window#waybar.hidden {
 }
 
 #clock {
-    color: #90ee90;
+    /*color: #90ee90;*/
+    color: #ffffff;
 }
 
 #battery {

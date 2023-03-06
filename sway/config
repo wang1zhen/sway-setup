@@ -19,7 +19,8 @@ set $term kitty
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
-set $menu rofi -show drun | xargs swaymsg exec --
+# set $menu bemenu-run -i --center --width-factor 0.5 -l 10 -H 25 --fb "#eff1f5" --ff "#179299" --nb "#eff1f5" --nf "#4c4f69" --tb "#eff1f5" --hb "#eff1f5" --tf "#8839ef" --hf "#fe640b" --nf "#4c4f69" --af "#4c4f69" --ab "#eff1f5" | xargs swaymsg exec --
+set $menu rofi -show drun -font "CaskaydiaCove Nerd Font 20" -show-icons -theme "Arc-Dark" | xargs swaymsg exec --
 gaps inner 10
 gaps outer 0
 
@@ -101,9 +102,9 @@ input "type:touchpad" {
     # Reload the configuration file
     bindsym $mod+Shift+r reload
 
-    # TODO
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+semicolon exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+    # bindsym $mod+Shift+semicolon exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+    bindsym $mod+Shift+semicolon exec wlogout
 #
 # Moving around:
 #
